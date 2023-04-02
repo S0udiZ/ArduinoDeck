@@ -1,0 +1,146 @@
+[
+  {
+    "id": "S1",
+    "sound": "Sound1.mp3",
+    "app": "",
+    "command": "",
+    "image": "Terry_Screaming.png",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S2",
+    "sound": "old-spice-by-tuna.mp3",
+    "app": "",
+    "command": "",
+    "image": "old-spice-by-tuna.webp",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S3",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S4",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S5",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S6",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S7",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S8",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S9",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S10",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S11",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S12",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S13",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S14",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S15",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  },
+  {
+    "id": "S16",
+    "sound": "",
+    "app": "",
+    "command": "",
+    "image": "",
+    "text": "",
+    "type": "sound"
+  }
+]
