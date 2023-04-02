@@ -4,7 +4,6 @@ The ArduinoDeck is a little project of remaking the Streamdeck via an arduino.
 ## Features right now
 - Customizable buttons (via image, text, and sounds)
 - Being able to play sound from the computer
-- 
 
 ## Features to come (hopefully)
 - App and Commandline buttons
