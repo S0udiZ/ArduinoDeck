@@ -5,6 +5,9 @@
 
 	import emptyProfile from "./assets/emptyProfile.json";
 
+	const emptyButton =
+		"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDAREAAhEBAxEB/8QAFAABAAAAAAAAAAAAAAAAAAAAC//EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AP/B//9k=";
+
 	import {
 		copyFile,
 		BaseDirectory,
@@ -18,8 +21,9 @@
 	} from "@tauri-apps/api/fs";
 	import { open } from "@tauri-apps/api/dialog";
 	import { appDataDir, join } from "@tauri-apps/api/path";
-	import { convertFileSrc } from '@tauri-apps/api/tauri';
-	
+	import { convertFileSrc } from "@tauri-apps/api/tauri";
+	import { tauri } from "@tauri-apps/api";
+
 	let appDataPath: string;
 
 	const serial: Serial = navigator.serial;
@@ -135,17 +139,19 @@
 		$selectedButton.sound = fileName;
 	}
 
-	async function saveChanges(e) {
+	async function saveChanges(e: Event) {
 		e.preventDefault();
 		const index = soundFiles.findIndex(
 			(soundFile) => soundFile.id == $selectedButton.id
 		);
 		soundFiles[index] = $selectedButton;
-		await writeTextFile(
-			"assets\\profile.json",
-			JSON.stringify(soundFiles),
-			{ dir: BaseDirectory.App }
-		);
+		await writeTextFile("assets\\profile.json", JSON.stringify(soundFiles), {
+			dir: BaseDirectory.App,
+		});
+	}
+
+	async function showInFolder() {
+		await tauri.invoke("show_in_folder", {path: (await join(appDataPath, "assets")).toString()});
 	}
 
 	onMount(async () => {
@@ -160,8 +166,6 @@
 		}
 
 		appDataPath = await appDataDir();
-
-		console.log(appDataPath);
 
 		if (!(await exists("assets\\img", { dir: BaseDirectory.App }))) {
 			await createDir("assets\\img", {
@@ -194,7 +198,7 @@
 	<!-- {#if !connected} -->
 	<button
 		on:click={connectToPorts}
-		class={"absolute top-0 right-0 p-1 px-2 border-2 border-white" +
+		class={"absolute top-2 right-2 p-1 px-2 border-2 border-white rounded-xl hover:border-blue-500" +
 			" " +
 			(connected ? "bg-green-500" : "bg-red-500")}
 		disabled={connected}>Connect to arduino</button
@@ -203,12 +207,15 @@
   <button on:click={disconnectFromArduino} class="absolute top-0 right-0"
     >Disconnect from arduino</button>
   {/if} -->
-	<div class="w-full">
-		{#if connected}
-			<p>Connected</p>
-		{:else}
-			<p>Not connected</p>
-		{/if}
+	<div class="w-full space-y-4">
+		<div class="flex justify-evenly">
+			{#if connected}
+				<p>Connected</p>
+			{:else}
+				<p>Not connected</p>
+			{/if}
+			<button class="cursor-pointer" on:click={showInFolder}>Open file location 📁</button>
+		</div>
 		<div class="grid grid-cols-4 grid-rows-4 gap-2 max-w-fit mx-auto">
 			{#if soundFiles}
 				{#each soundFiles as soundFile}
@@ -217,7 +224,11 @@
 						on:click={() => selectButton(soundFile)}
 					>
 						<img
-							src={soundFile.sound ? convertFileSrc(`${appDataPath}assets\\img\\${soundFile.image}`) : ""}
+							src={soundFile.sound
+								? convertFileSrc(
+										`${appDataPath}assets\\img\\${soundFile.image}`
+								  )
+								: emptyButton}
 							alt={soundFile.id}
 							class="w-24 h-24 rounded-xl border-4 border-gray-400"
 						/>
@@ -232,11 +243,18 @@
 		</div>
 		<div>
 			{#if $selectedButton.id}
-				<form action="" class="border-2 border-white rounded-lg max-w-lg" on:submit={saveChanges}>
+				<form
+					class="border-2 border-white rounded-lg max-w-lg"
+					on:submit={saveChanges}
+				>
 					<p>{$selectedButton.id}</p>
 					<div class="relative w-fit h-fit inline-flex">
 						<img
-							src={$selectedButton.sound ? convertFileSrc(`${appDataPath}assets\\img\\${$selectedButton.image}`) : ""}
+							src={$selectedButton.sound
+								? convertFileSrc(
+										`${appDataPath}assets\\img\\${$selectedButton.image}`
+								  )
+								: emptyButton}
 							alt={$selectedButton.id}
 							class="w-20 h-20 rounded-xl"
 						/>
@@ -253,7 +271,12 @@
 					<label for="" class="inline-block w-32">
 						Sound:
 						<div class="relative w-fit h-fit">
-							<input name="sound" value={$selectedButton.sound} disabled class="w-32" />
+							<input
+								name="sound"
+								value={$selectedButton.sound}
+								disabled
+								class="w-32"
+							/>
 							<button
 								type="button"
 								on:click={handleSoundChange}
@@ -266,10 +289,14 @@
 					</label>
 					<label for="" class="inline-block">
 						Text:
-						<br>
+						<br />
 						<input name="text" bind:value={$selectedButton.text} />
 					</label>
-					<button type="submit">Save</button>
+					<button
+						type="submit"
+						class="bg-blue-600 p-1 px-4 border border-white rounded-xl"
+						>Save</button
+					>
 				</form>
 			{:else}
 				<p>No button selected</p>

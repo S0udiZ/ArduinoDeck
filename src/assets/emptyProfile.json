@@ -1,19 +1,19 @@
 [
   {
     "id": "S1",
-    "sound": "Sound1.mp3",
+    "sound": "",
     "app": "",
     "command": "",
-    "image": "Terry_Screaming.png",
+    "image": "",
     "text": "",
     "type": "sound"
   },
   {
     "id": "S2",
-    "sound": "old-spice-by-tuna.mp3",
+    "sound": "",
     "app": "",
     "command": "",
-    "image": "old-spice-by-tuna.webp",
+    "image": "",
     "text": "",
     "type": "sound"
   },
