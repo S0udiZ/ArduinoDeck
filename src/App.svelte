@@ -23,7 +23,6 @@
 	import { appDataDir, join } from "@tauri-apps/api/path";
 	import { convertFileSrc } from "@tauri-apps/api/tauri";
 	import { tauri } from "@tauri-apps/api";
-	import { open as openWindow } from "@tauri-apps/api/shell";
 
 	let appDataPath: string;
 
@@ -152,8 +151,9 @@
 	}
 
 	async function showInFolder() {
-		// await tauri.invoke("show_in_folder", {path: (await join(appDataPath, "assets")).toString()});
-		await openWindow(`${appDataPath}\\assets`);
+		await tauri.invoke("show_in_folder", {
+			path: (await join(appDataPath, "assets")).toString(),
+		});
 	}
 
 	onMount(async () => {
@@ -216,9 +216,9 @@
 			{:else}
 				<p>Not connected</p>
 			{/if}
-			<button class="cursor-pointer" on:click={showInFolder}
-				>Open file location 📁</button
-			>
+			<button class="cursor-pointer" on:click={showInFolder}>
+				Open file location 📁
+			</button>
 		</div>
 		<div class="grid grid-cols-4 grid-rows-4 gap-2 max-w-fit mx-auto">
 			{#if soundFiles}
