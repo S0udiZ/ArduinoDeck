@@ -24,7 +24,7 @@ To build ArduinoDeck locally you need the following
     npm install
     ```
 4. ```bash
-    npm run tauti build
+    npm run tauri build
     ```
 ---
 ## Building from binary
@@ -39,7 +39,7 @@ To develop locally you need the following
     npm install
     ```
 4. ```bash
-    npm run tauti dev
+    npm run tauri dev
     ```
 5. You can now change the code in `app.svelte`
 ---
